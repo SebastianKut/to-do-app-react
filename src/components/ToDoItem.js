@@ -11,15 +11,17 @@ export class ToDoItem extends Component {
         }
     };
 //using arrow functions insted of traditional ones allows not to use function.bind(this)
-    markComplete = (e) => {
-        console.log(this.props)
-    }
 
     render() {
+
+        //using destructuring we pull out id and title from this.props.todo to pass in return() JSX
+        const {id, title} = this.props.todo;
+
         return (
             <div style={this.getStyle()}>
-                <input type="checkbox" onChange={this.markComplete} />
-                <p>{this.props.todo.title}</p>
+                <input type="checkbox" onChange={this.props.toggleComplete.bind(this, id)} />
+        {/* because of structuring we dnt have to write <p>{this.props.todo.title} */}
+                <p>{title}</p>
             </div>
         )
     }
