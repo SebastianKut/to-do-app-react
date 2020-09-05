@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './components/layout/Header';
 import ToDos from './components/ToDos';
 import AddToDo from './components/AddToDo';
+import { v4 as uuidv4 } from 'uuid';
 
 import './App.css';
 
@@ -10,17 +11,17 @@ class App extends React.Component {
   state = {
     todos: [
       {
-        id: 1,
+        id: uuidv4(),
         title: 'Take out trash',
         completed: false
       },
       {
-        id: 2,
+        id: uuidv4(),
         title: 'Call Sally',
         completed: false
       },
       {
-        id: 3,
+        id: uuidv4(),
         title: 'Apply for jobs',
         completed: false
       }
@@ -45,12 +46,25 @@ class App extends React.Component {
     })
   };
 
+  //Add todo
+  addToDo = (title) => {
+    const newTodo = {
+      //generate id using uuid package that can be installe with command "npm i uuid"
+      id: uuidv4(),
+      title: title,
+      completed: false
+    }
+    this.setState({
+      todos: [...this.state.todos, newTodo]
+    })
+  }
+
   render() {
     return (
       <div className="App">
         <div className="container">
           <Header />
-          <AddToDo />
+          <AddToDo addToDo={this.addToDo}/>
           <ToDos todos={this.state.todos} toggleComplete={this.toggleComplete} deleteTodo={this.deleteTodo}/>
         </div>
       </div>
