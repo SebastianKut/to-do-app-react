@@ -19,9 +19,12 @@ export class ToDoItem extends Component {
 
         return (
             <div style={this.getStyle()}>
-                <input type="checkbox" onChange={this.props.toggleComplete.bind(this, id)} />
-        {/* because of structuring we dnt have to write <p>{this.props.todo.title} */}
-                <p>{title}</p>
+                <p>
+                <input type="checkbox" onChange={this.props.toggleComplete.bind(this, id)} />{' '}
+                {/* because of structuring we dnt have to write <p>{this.props.todo.title} */}
+                {title} 
+                <button onClick={this.props.deleteTodo.bind(this, id)} style={btnStyle}>x</button>
+                </p>
             </div>
         )
     }
@@ -31,4 +34,15 @@ export class ToDoItem extends Component {
 ToDoItem.propTypes = {
     todo: PropTypes.object.isRequired
 }
+
+const btnStyle = {
+    background: '#ff0000',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '50%',
+    cursor: 'pointer',
+    padding: '5px 8px', 
+    float: 'right'
+}
+
 export default ToDoItem

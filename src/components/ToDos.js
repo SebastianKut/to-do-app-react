@@ -7,7 +7,7 @@ class ToDos extends React.Component {
     render(){
         return(
             this.props.todos.map((todo) =>
-                <ToDoItem key={todo.id} todo={todo} toggleComplete={this.props.toggleComplete}/>
+                <ToDoItem key={todo.id} todo={todo} toggleComplete={this.props.toggleComplete} deleteTodo={this.props.deleteTodo}/>
             )
         )
     }

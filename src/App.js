@@ -1,10 +1,12 @@
 import React from 'react';
+import Header from './components/layout/Header';
 import ToDos from './components/ToDos';
+import AddToDo from './components/AddToDo';
 
 import './App.css';
 
 
-class App extends React.Component {
+class App extends React.Component { 
   state = {
     todos: [
       {
@@ -36,10 +38,21 @@ class App extends React.Component {
     });
   };
 
+  //Delete todo
+  deleteTodo = (id) => {
+    this.setState({
+      todos: [...this.state.todos.filter(todo => todo.id !== id)]
+    })
+  };
+
   render() {
     return (
       <div className="App">
-        <ToDos todos={this.state.todos} toggleComplete={this.toggleComplete}/>
+        <div className="container">
+          <Header />
+          <AddToDo />
+          <ToDos todos={this.state.todos} toggleComplete={this.toggleComplete} deleteTodo={this.deleteTodo}/>
+        </div>
       </div>
     );
   }  
