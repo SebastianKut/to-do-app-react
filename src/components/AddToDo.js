@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export class AddToDo extends Component {
     //this is component level state that is different to app level state that can be controlled via Redux 
@@ -48,3 +49,6 @@ export class AddToDo extends Component {
 
 export default AddToDo
 
+AddToDo.propTypes = {
+    addToDo: PropTypes.func.isRequired,
+}

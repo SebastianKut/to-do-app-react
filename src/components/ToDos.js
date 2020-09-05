@@ -14,6 +14,8 @@ class ToDos extends React.Component {
 }
 // PropTypes
 ToDos.propTypes = {
-    todos: PropTypes.array.isRequired
+    todos: PropTypes.array.isRequired,
+    toggleComplete: PropTypes.func.isRequired,
+    deleteTodo: PropTypes.func.isRequired
 }
 export default ToDos;

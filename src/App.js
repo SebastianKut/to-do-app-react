@@ -5,31 +5,27 @@ import Header from './components/layout/Header';
 import ToDos from './components/ToDos';
 import AddToDo from './components/AddToDo';
 import About from './components/pages/About';
-import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
+//import { v4 as uuidv4 } from 'uuid'; - this module generates random id, to use - uuidv4() 
 
 import './App.css';
 
 
 class App extends React.Component { 
   state = {
-    todos: [
-      {
-        id: uuidv4(),
-        title: 'Take out trash',
-        completed: false
-      },
-      {
-        id: uuidv4(),
-        title: 'Call Sally',
-        completed: false
-      },
-      {
-        id: uuidv4(),
-        title: 'Apply for jobs',
-        completed: false
-      }
-    ]
+    todos: []
   }
+
+  //to do http request we have to use componentDidMount lifecycle function
+  //and for fetching data we use axios component installed with "npm i axios"
+componentDidMount() {
+  axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
+  .then(response => this.setState({
+    todos: response.data
+  }))
+}
+
+
   //Toggle complete
   toggleComplete = (id) => {
     this.setState({
@@ -44,22 +40,22 @@ class App extends React.Component {
 
   //Delete todo
   deleteTodo = (id) => {
-    this.setState({
+    axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+    .then(response => this.setState({
       todos: [...this.state.todos.filter(todo => todo.id !== id)]
-    })
+    }))
   };
 
-  //Add todo
+  //Add todo 
   addToDo = (title) => {
-    const newTodo = {
-      //generate id using uuid package that can be installe with command "npm i uuid"
-      id: uuidv4(),
-      title: title,
-      completed: false
-    }
-    this.setState({
-      todos: [...this.state.todos, newTodo]
+    //post todo to the backend then update state from the backend (becasue it only mimics the server and not actually adding data to the server each id is 201, as there is only 200 todos in the json)
+    axios.post('https://jsonplaceholder.typicode.com/todos', {
+      title: title, //thgis can be written as just "title" with ES6
+      complete: false
     })
+    .then(response => this.setState({
+        todos: [...this.state.todos, response.data]
+        }))
   }
 
   render() {
