@@ -1,7 +1,10 @@
 import React from 'react';
+//to instal Router run: npm i react-router-dom
+import { BrowserRouter as Router, Route} from 'react-router-dom';
 import Header from './components/layout/Header';
 import ToDos from './components/ToDos';
 import AddToDo from './components/AddToDo';
+import About from './components/pages/About';
 import { v4 as uuidv4 } from 'uuid';
 
 import './App.css';
@@ -61,13 +64,24 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <div className="container">
-          <Header />
-          <AddToDo addToDo={this.addToDo}/>
-          <ToDos todos={this.state.todos} toggleComplete={this.toggleComplete} deleteTodo={this.deleteTodo}/>
+      //to use Router we have to wrap everything in it
+      <Router>
+        <div className="App">
+          <div className="container">
+            <Header />
+            {/* if there is more than one component we have to use render prop 
+            Also adding exact to path will ensure that it will only be shown in that path*/}
+            <Route exact path="/" render={props => (
+              <React.Fragment>
+                <AddToDo addToDo={this.addToDo}/>
+                <ToDos todos={this.state.todos} toggleComplete={this.toggleComplete} 
+                deleteTodo={this.deleteTodo}/>
+              </React.Fragment>
+            )} /> 
+            <Route path="/about" component={About} />
+          </div>
         </div>
-      </div>
+      </Router>
     );
   }  
 }
